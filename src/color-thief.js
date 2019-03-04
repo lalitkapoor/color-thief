@@ -140,6 +140,7 @@ ColorThief.prototype.getPalette = function(sourceImage, colorCount, quality) {
 
 ColorThief.prototype.getColorFromUrl = function(imageUrl, callback, quality) {
     sourceImage = document.createElement("img");
+    sourceImage.crossOrigin = 'anonymous';
     var thief = this;
     sourceImage.addEventListener('load' , function(){
         var palette = thief.getPalette(sourceImage, 5, quality);
@@ -179,7 +180,7 @@ ColorThief.prototype.getColorAsync = function(imageUrl, callback, quality) {
             var dominantColor = palette[0];
             callback(dominantColor, this);
         });
-        sourceImage.src = imageData;      
+        sourceImage.src = imageData;
     });
 };
 
@@ -655,3 +656,7 @@ var MMCQ = (function() {
         quantize: quantize
     };
 })();
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = ColorThief
+}
